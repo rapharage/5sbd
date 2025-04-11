@@ -1,4 +1,5 @@
 Parte 1 – Junções e Produto Cartesiano
+
 1. Nome do cliente e número da conta:
 sql
 Copiar
@@ -6,12 +7,18 @@ Editar
 SELECT cliente.nome, conta.numero_conta
 FROM cliente, conta
 WHERE cliente.cliente_id = conta.cliente_id;
+
+--------------------------------------------------------------------------------------------------------
+
 2. Produto cartesiano entre clientes e agências:
 sql
 Copiar
 Editar
 SELECT cliente.nome, agencia.nome_agencia
 FROM cliente, agencia;
+
+--------------------------------------------------------------------------------------------------------
+
 3. Nome dos clientes e cidade da agência onde possuem conta:
 sql
 Copiar
@@ -20,38 +27,58 @@ SELECT c.nome, a.cidade
 FROM cliente c, conta ct, agencia a
 WHERE c.cliente_id = ct.cliente_id
 AND ct.agencia_id = a.agencia_id;
+
+--------------------------------------------------------------------------------------------------------
+
 Parte 2 – Funções de Grupo, COUNT, DISTINCT e NVL
+
 4. Saldo total das contas:
 sql
 Copiar
 Editar
 SELECT SUM(saldo) AS saldo_total
 FROM conta;
+
+--------------------------------------------------------------------------------------------------------
+
 5. Maior saldo e média dos saldos:
 sql
 Copiar
 Editar
 SELECT MAX(saldo) AS maior_saldo, AVG(saldo) AS media_saldo
 FROM conta;
+
+--------------------------------------------------------------------------------------------------------
+
 6. Quantidade total de contas:
 sql
 Copiar
 Editar
 SELECT COUNT(*) AS total_contas
 FROM conta;
+
+--------------------------------------------------------------------------------------------------------
+
 7. Número de cidades distintas dos clientes:
 sql
 Copiar
 Editar
 SELECT COUNT(DISTINCT cidade) AS cidades_distintas
 FROM cliente;
+
+--------------------------------------------------------------------------------------------------------
+
 8. Número da conta e saldo (substituindo NULL por zero):
 sql
 Copiar
 Editar
 SELECT numero_conta, NVL(saldo, 0) AS saldo
 FROM conta;
+
+--------------------------------------------------------------------------------------------------------
+
 Parte 3 – GROUP BY, HAVING, ROLLUP e Operadores de Conjunto
+
 9. Média de saldo por cidade dos clientes:
 sql
 Copiar
@@ -60,6 +87,9 @@ SELECT cidade, AVG(saldo) AS media_saldo
 FROM cliente c, conta ct
 WHERE c.cliente_id = ct.cliente_id
 GROUP BY cidade;
+
+--------------------------------------------------------------------------------------------------------
+
 10. Cidades com mais de 3 contas:
 sql
 Copiar
@@ -69,6 +99,9 @@ FROM cliente c, conta ct
 WHERE c.cliente_id = ct.cliente_id
 GROUP BY cidade
 HAVING COUNT(*) > 3;
+
+--------------------------------------------------------------------------------------------------------
+
 11. Total de saldos por cidade da agência e total geral (ROLLUP):
 sql
 Copiar
@@ -77,6 +110,9 @@ SELECT a.cidade, SUM(ct.saldo) AS total_saldo
 FROM agencia a, conta ct
 WHERE a.agencia_id = ct.agencia_id
 GROUP BY ROLLUP (a.cidade);
+
+--------------------------------------------------------------------------------------------------------
+
 12. UNION entre cidades dos clientes e agências:
 sql
 Copiar
